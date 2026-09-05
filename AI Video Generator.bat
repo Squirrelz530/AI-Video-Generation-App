@@ -29,24 +29,11 @@ echo.
 echo Installing required packages...
 pip install pillow opencv-python -q
 
-REM Download the converter script
-echo.
-echo Downloading converter script...
-powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Squirrelz530/AI-Video-Generation-App/main/auto_convert.py' -OutFile 'auto_convert.py'"
-
-REM Run the converter
+REM Run the converter directly
 echo.
 echo Starting video conversion...
 echo.
 python auto_convert.py
-
-REM Check if conversion succeeded
-if %errorlevel% neq 0 (
-    echo.
-    echo Error during conversion
-    pause
-    exit /b 1
-)
 
 echo.
 echo ======================================
