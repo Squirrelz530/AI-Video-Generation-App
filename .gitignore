@@ -48,6 +48,7 @@ output/
 *.mp4
 *.avi
 scenes/
+output/
 
 # OS
 .DS_Store
