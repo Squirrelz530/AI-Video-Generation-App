@@ -1,64 +1,18 @@
 @echo off
-REM Automated Video Converter Batch Script
-REM This script handles the entire video conversion workflow
-
-echo ======================================
-echo AI VIDEO CONVERTER - AUTOMATED
-echo ======================================
-echo.
-
-REM Change to script directory
+setlocal
 cd /d "%~dp0"
 
-REM Check if virtual environment exists
 if not exist ".venv\Scripts\activate.bat" (
     echo Creating virtual environment...
     python -m venv .venv
-    if %errorlevel% neq 0 (
-        echo Error creating virtual environment
-        pause
-        exit /b 1
-    )
-    echo Virtual environment created successfully!
-    echo.
+    if errorlevel 1 exit /b 1
 )
 
-REM Activate virtual environment
-echo Activating virtual environment...
 call .venv\Scripts\activate.bat
+python -m pip install -r requirements.txt
+if errorlevel 1 exit /b 1
 
-REM Install required packages
-echo.
-echo Installing required packages...
-pip install pillow opencv-python -q
-
-REM Download the converter script
-echo.
-echo Downloading converter script...
-powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Squirrelz530/AI-Video-Generation-App/main/auto_convert.py' -OutFile 'auto_convert.py'"
-if %errorlevel% neq 0 (
-    echo Error downloading script
-    pause
-    exit /b 1
-)
-
-REM Run the converter
-echo.
-echo Starting video conversion...
-echo.
-python auto_convert.py
-
-REM Check if conversion succeeded
-if %errorlevel% neq 0 (
-    echo.
-    echo Error during conversion
-    pause
-    exit /b 1
-)
-
-echo.
-echo ======================================
-echo ✓ COMPLETE!
-echo ======================================
-echo.
-pause
+if not exist "input\images" mkdir "input\images"
+if not exist "output" mkdir "output"
+echo Setup complete. Put scene images in input\images\ and run convert.bat.
+endlocal
