@@ -7,27 +7,35 @@ echo AI VIDEO CONVERTER - AUTOMATED
 echo ======================================
 echo.
 
+REM Change to script directory
+cd /d "%~dp0"
+
 REM Check if virtual environment exists
-if not exist ".venv" (
-    echo Error: Virtual environment not found!
-    echo Please run: python -m venv .venv
-    pause
-    exit /b 1
+if not exist ".venv\Scripts\activate.bat" (
+    echo Creating virtual environment...
+    python -m venv .venv
+    if %errorlevel% neq 0 (
+        echo Error creating virtual environment
+        pause
+        exit /b 1
+    )
+    echo Virtual environment created successfully!
+    echo.
 )
 
 REM Activate virtual environment
 echo Activating virtual environment...
 call .venv\Scripts\activate.bat
-if %errorlevel% neq 0 (
-    echo Error activating virtual environment
-    pause
-    exit /b 1
-)
+
+REM Install required packages
+echo.
+echo Installing required packages...
+pip install pillow opencv-python -q
 
 REM Download the converter script
 echo.
 echo Downloading converter script...
-curl -o auto_convert.py https://raw.githubusercontent.com/Squirrelz530/AI-Video-Generation-App/main/auto_convert.py
+powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/Squirrelz530/AI-Video-Generation-App/main/auto_convert.py' -OutFile 'auto_convert.py'"
 if %errorlevel% neq 0 (
     echo Error downloading script
     pause
