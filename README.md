@@ -9,9 +9,10 @@ generative model and its runtime still need to be added.
 ## Quick start (Windows)
 
 1. Install Python 3.10 or newer.
-2. Run `run_converter.bat` once. It creates `.venv` and installs dependencies.
+2. Run `run_converter.bat` to create `.venv`, install dependencies, and create
+   the input and output folders.
 3. Put PNG, JPG, JPEG, or WebP scene images in `input/images/`.
-4. Run `convert.bat`.
+4. Run `AI Video Generator.bat` to prepare the environment and start conversion.
 5. Find the default sequence at `output/battle_sequence.mp4`.
 
 Images are read recursively and sorted by filename. Name them with a numeric
@@ -42,7 +43,9 @@ python auto_convert.py --input-dir input/images --output-dir output --duration 8
 
 ## Workflow
 
-`input/images/` -> sorted scene images -> OpenCV MP4 writer -> `output/`.
+`AI Video Generator.bat` -> `run_converter.bat` (environment setup) ->
+`convert.bat` (conversion) -> `input/images/` -> sorted scene images -> OpenCV
+MP4 writer -> `output/`.
 
 The converter does not yet animate pixels, generate images from prompts, or
 create new battle footage. Those capabilities require integrating a selected
