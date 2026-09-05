@@ -43,7 +43,9 @@ env/
 .env.local
 .env.*.local
 
-# Generated files
+# Project media folders
+input/images/*
+!input/images/.gitkeep
 output/
 *.mp4
 *.avi
